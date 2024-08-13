@@ -2,6 +2,22 @@
 #include<vector>
 using namespace std;
 
+string decrypt(vector<char>& arr, string str, int key){
+ 
+    string PT = "";
+    int index;
+    for(int i=0; i<str.length(); i++){
+        for(int j=0; j<arr.size(); j++){
+            if(str[i] == arr[j]){
+                index = (j - key) % 26;
+                break;
+            }
+        }
+        PT += arr[index];
+    }
+    return PT;
+}
+
 string encrypt(vector<char>& arr, string str, int key){
  
     string CT = "";
@@ -30,9 +46,11 @@ int main()
     cout << "Enter key : ";
     cin >> key;
 
+    string s = encrypt(arr, str, key);
+
     
-    cout << "Cipher text : " << encrypt(arr, str, key) << endl;
-    //cout << "Cipher text : " << decrypt(arr, str, key) << endl;
+    cout << "Cipher text (Encrypted text) : " << s << endl;
+    cout << "Plain text (Decrypted text): " << decrypt(arr, s, key) << endl;
 
     return 0;
 
